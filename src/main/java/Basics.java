@@ -1,6 +1,7 @@
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import payloads.Payloads;
+import utils.RawToJson;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -17,8 +18,7 @@ public class Basics {
                 .body(Payloads.addPlace())
         .when().post("maps/api/place/add/json")
                 .then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP")).extract().response().asString();
-        JsonPath jsonPath = new JsonPath(response);
-        String placeId = jsonPath.getString("place_id");
+        String placeId = RawToJson.rawToJson(response).getString("place_id");
         System.out.println("Place id in response is: " + placeId);
 
         //    Update place
