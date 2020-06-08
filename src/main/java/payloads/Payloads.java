@@ -20,4 +20,16 @@ public class Payloads {
                 "  \"language\": \"French-IN\"\n" +
                 "}\n";
     }
-}
+
+    public static String patchPlace(String place_id, String adress){
+        return "{\n" +
+                "\t\"place_id\": \"" + place_id + "\",\n" +
+                "\t\"address\": \"" + adress +"\",\n" +
+                "\t\"key\": \"qaclick123\"\n" +
+                "}";
+    }
+
+
+    }
+
+
