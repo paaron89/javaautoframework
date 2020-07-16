@@ -1,7 +1,7 @@
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import payloads.Payloads;
-import utils.RawToJson;
+import utils.Helpers;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -18,7 +18,7 @@ public class Basics {
                 .body(Payloads.addPlace())
         .when().post("maps/api/place/add/json")
                 .then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP")).extract().response().asString();
-        String placeId = RawToJson.rawToJson(rPostPlace).getString("place_id");
+        String placeId = Helpers.rawToJson(rPostPlace).getString("place_id");
         System.out.println("Place id in response is: " + placeId);
 
         //    Update place
@@ -36,7 +36,7 @@ public class Basics {
                 when().get("maps/api/place/get/json").
                 then().log().all().assertThat().statusCode(200).extract().response().asString();
 
-        String updatedAdressGet = RawToJson.rawToJson(rGet).getString("address");
+        String updatedAdressGet = Helpers.rawToJson(rGet).getString("address");
         Assert.assertEquals(updatedAdressGet, updatedAddress,
                 "Updated address mismatch in GET response");
 
