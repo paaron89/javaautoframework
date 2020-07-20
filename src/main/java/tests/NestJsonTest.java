@@ -1,7 +1,8 @@
-package utils;
+package tests;
 
 import io.restassured.path.json.JsonPath;
 import payloads.Payloads;
+import utils.Helpers;
 
 public class NestJsonTest {
 
@@ -38,7 +39,6 @@ public class NestJsonTest {
 
         String firstCourse = coursesJson.getString("courses[0].title");
         System.out.println("The first course is: " + firstCourse);
-
 
     }
 }
