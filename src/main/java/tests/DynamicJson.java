@@ -1,10 +1,12 @@
 package tests;
 
 import io.restassured.RestAssured;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import payloads.Payloads;
 import utils.Helpers;
+import utils.fileHandler;
 
 public class DynamicJson {
 
@@ -31,6 +33,13 @@ public class DynamicJson {
                 .body("{\"ID\":isbn+aisle}")
                 .when().post("/Library/DeleteBook.php")
                 .then().assertThat().statusCode(200).extract().response().asString();
+    }
+
+    @Test
+    public void fileHandlerTest(){
+        String filedata = fileHandler.fileReader("src/resources/filereadtest");
+        System.out.println(filedata);
+        Assert.assertEquals(filedata, "alma", "File content mismatch");
     }
 
 
