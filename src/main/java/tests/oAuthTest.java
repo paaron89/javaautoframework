@@ -1,12 +1,18 @@
 package tests;
+import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.Test;
+import pojo.GetCourse;
+import pojo.WebAutomation;
 import utils.Helpers;
 import utils.fileHandler;
+
+import java.util.List;
+
 import static io.restassured.RestAssured.given;
 
 public class oAuthTest {
@@ -25,7 +31,7 @@ public class oAuthTest {
 //        driver.findElement(By.cssSelector("input[name='password']")).sendKeys(this.pswd);
 //        driver.findElement(By.cssSelector("input[name='password']")).sendKeys(Keys.ENTER);
 //        String url = driver.getCurrentUrl();
-        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F2wEQg8wCwgSg3GDOp_56Fvfel1yGEYmVdzA1QlH47LFj8jYU6uBLz9NCuD7qjYMlikwCby9y9sWgyGpVNVNjaEA&scope=email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+openid&authuser=0&prompt=consent";
+        String url = "https://rahulshettyacademy.com/getCourse.php?code=4%2F2wEIib4QqfG_KeK3DDYdOT--z5yJczOJrEw9nIAF5vqFFgdi1IOk1EnrtQchAAZWTMdd2kSro4RNnzEI9-S6Vys&scope=email+openid+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&authuser=0&prompt=none#";
         String partialCode = url.split("code=")[1];
         String code = partialCode.split("scope=")[0];
         System.out.println("MYCode is : " + code);
@@ -44,9 +50,22 @@ public class oAuthTest {
         String accessToken = Helpers.rawToJson(accesTokenResponse).get("access_token");
 
         //Use accesToken to get courses
-        String response = given().queryParam("access_token", accessToken)
-                .when().get("https://rahulshettyacademy.com/getCourse.php").asString();
-        System.out.println("My response: " + response);
+        GetCourse r_getcourse = given().queryParam("access_token", accessToken).expect().defaultParser(Parser.JSON)
+                .when().get("https://rahulshettyacademy.com/getCourse.php").as(GetCourse.class);
+
+        //System.out.println("My response: " + r_getcourse);
+
+        System.out.println("My linkedig: " + r_getcourse.getLinkedIn());
+        System.out.println("My courses " + r_getcourse.getCourses().getWebAutomation().get(1).getCourseTitle());
+        List<WebAutomation> webAutomationsCourses = r_getcourse.getCourses().getWebAutomation();
+
+        for(int i = 0; i<webAutomationsCourses.size(); i++){
+            if(webAutomationsCourses.get(i).getCourseTitle().equalsIgnoreCase("Cypress")){
+                System.out.println("Price of " + webAutomationsCourses.get(i).getCourseTitle() + " is " + webAutomationsCourses.get(i).getPrice());
+            }
+
+        }
+
 
     }
 }

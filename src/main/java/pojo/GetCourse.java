@@ -33,11 +33,11 @@ public class GetCourse {
         this.expertise = expertise;
     }
 
-    public pojo.Courses getCourses() {
+    public Courses getCourses() {
         return Courses;
     }
 
-    public void setCourses(pojo.Courses courses) {
+    public void setCourses(Courses courses) {
         Courses = courses;
     }
 
