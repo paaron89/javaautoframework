@@ -31,7 +31,7 @@ public class NestJsonTest {
         System.out.println("Print number of copies if title RPA");
         for (int i = 0; i < sizeOfCourses; i++) {
             if (coursesJson.getString("courses[ " + i + "].title").equalsIgnoreCase("RPA")) {
-                System.out.println(coursesJson.get("courses[ " + i + "].copies"));
+                System.out.println(java.util.Optional.ofNullable(coursesJson.get("courses[ " + i + "].copies")));
                 break;
             }
         }
