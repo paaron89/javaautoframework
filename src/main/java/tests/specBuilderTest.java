@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
@@ -19,6 +20,9 @@ import static io.restassured.RestAssured.given;
 public class specBuilderTest {
 
     @Test
+    @Severity(SeverityLevel.CRITICAL)
+    @Epic("Regression test")
+    @Description("Test Description: Enter some description here")
     public void serializeTest(){
         RestAssured.baseURI = "https://rahulshettyacademy.com/";
         AddPlace addPlace = new AddPlace();
@@ -51,6 +55,10 @@ public class specBuilderTest {
         System.out.println("MYRESPONSE " + responseString);
 
 
+    }
+   @Step("End of test case step")
+    public void endOfTest(){
+        System.out.println("End of TestCase");
     }
 
 }
