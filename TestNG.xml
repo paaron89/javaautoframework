@@ -3,7 +3,7 @@
 <suite name="Default suite" parallel="methods" verbose="3">
     <test name="Allure reporting with TestNG tests" skipfailedinvocationcounts="false">
         <classes>
-                    <class name="tests.specBuilderTest"/>
+                    <class name="tests.api.specBuilderTest"/>
         </classes>
     </test>
 </suite>

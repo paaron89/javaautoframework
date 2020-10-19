@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 import io.restassured.parsing.Parser;
 import io.restassured.path.json.JsonPath;
 import org.openqa.selenium.By;

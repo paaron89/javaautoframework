@@ -1,4 +1,4 @@
-package tests;
+package tests.api;
 
 import io.restassured.RestAssured;
 import org.testng.Assert;
